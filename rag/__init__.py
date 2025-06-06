@@ -9,10 +9,6 @@ def rag_answer(query: str):
     Given a query, retrieves the most relevant page and generates an answer using OpenAI LLM.
     Returns (answer, timing_dict)
     """
-    QDRANT_URL = os.getenv("QDRANT_URL")
-    QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
-    print(f"[DEBUG] QDRANT_URL: {QDRANT_URL}")
-    print(f"[DEBUG] QDRANT_API_KEY: {QDRANT_API_KEY}")
     print(f"[DEBUG] Using collection: {COMPANY_FAQ_COLLECTION}")
     client = get_qdrant_client()
     start_retrieve = time.time()

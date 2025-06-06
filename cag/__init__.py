@@ -18,7 +18,9 @@ print(f"[CAG] Loaded ({len(faq_text)} characters)")
 print("[CAG] Preparing system prompt...")
 system_prompt = f"""
 <|system|>
-You are an assistant who provides concise answers ONLY using the provided context short and concise. If the answer is not in the context, say you don't know. Be concise and accurate.
+You are an assistant who provides concise answers ONLY using the provided context short and concise.
+If the answer is not in the context, say you don't know. Be concise and accurate.
+If query language is not English, answer in the same language as the query.
 <|user|>
 Context:
 {faq_text}
