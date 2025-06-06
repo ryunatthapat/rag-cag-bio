@@ -6,7 +6,7 @@ QDRANT_HOST = "localhost"
 QDRANT_API_KEY = os.getenv("QDRANT_API_KEY", None)
 QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")
 QDRANT_PORT = 6333
-# BIO_COLLECTION = "biographies"
+BIO_COLLECTION = "biographies"
 IPHONE_COLLECTION = "iphones-catalog"
 DEFAULT_VECTOR_SIZE = 1536  # OpenAI ada-002 embedding size
 

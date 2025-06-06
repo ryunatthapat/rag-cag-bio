@@ -1,5 +1,5 @@
 import time
-from .db import get_qdrant_client, BIO_COLLECTION
+from .db import get_qdrant_client, BIO_COLLECTION, IPHONE_COLLECTION
 from .retrieve import retrieve_embeddings
 from .agent import generate_answer
 
@@ -10,10 +10,10 @@ def rag_answer(query: str):
     """
     client = get_qdrant_client()
     start_retrieve = time.time()
-    result = retrieve_embeddings(query, client, BIO_COLLECTION)
+    result = retrieve_embeddings(query, client, IPHONE_COLLECTION)
     end_retrieve = time.time()
     if not result:
-        return ("No relevant biography found.", {"retrieval": end_retrieve - start_retrieve, "generation": 0})
+        return ("No relevant data found.", {"retrieval": end_retrieve - start_retrieve, "generation": 0})
     context = result["text"]
     start_gen = time.time()
     answer = generate_answer(query, context)
