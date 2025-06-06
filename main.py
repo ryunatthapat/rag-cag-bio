@@ -2,6 +2,7 @@ import sys
 from colorama import Fore, Style, init as colorama_init
 from rag import rag_answer
 from cag import cag_answer
+import threading
 
 colorama_init(autoreset=True)
 
@@ -20,13 +21,30 @@ def main():
             if not query:
                 continue
             print(f"\n{Fore.MAGENTA}Processing...{Style.RESET_ALL}")
-            # RAG
-            rag_ans, rag_timing = rag_answer(query)
-            # CAG
-            cag_ans, cag_timing = cag_answer(query)
-            print()
-            print_result("RAG", rag_ans, rag_timing.get("retrieval", 0) + rag_timing.get("generation", 0), Fore.GREEN)
-            print_result("CAG", cag_ans, cag_timing.get("generation", 0), Fore.BLUE)
+            results = {}
+            exceptions = {}
+            def run_rag():
+                try:
+                    rag_ans, rag_timing = rag_answer(query)
+                    results['rag'] = (rag_ans, rag_timing)
+                    print_result("RAG", rag_ans, rag_timing.get("retrieval", 0) + rag_timing.get("generation", 0), Fore.GREEN)
+                except Exception as e:
+                    exceptions['rag'] = e
+                    print(f"{Fore.RED}[RAG Error]{Style.RESET_ALL} {e}")
+            def run_cag():
+                try:
+                    cag_ans, cag_timing = cag_answer(query)
+                    results['cag'] = (cag_ans, cag_timing)
+                    print_result("CAG", cag_ans, cag_timing.get("generation", 0), Fore.BLUE)
+                except Exception as e:
+                    exceptions['cag'] = e
+                    print(f"{Fore.RED}[CAG Error]{Style.RESET_ALL} {e}")
+            t_rag = threading.Thread(target=run_rag)
+            t_cag = threading.Thread(target=run_cag)
+            t_rag.start()
+            t_cag.start()
+            t_rag.join()
+            t_cag.join()
             print()
         except KeyboardInterrupt:
             print("\nInterrupted. Exiting.")

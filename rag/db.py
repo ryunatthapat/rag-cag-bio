@@ -6,7 +6,8 @@ QDRANT_HOST = "localhost"
 QDRANT_API_KEY = os.getenv("QDRANT_API_KEY", None)
 QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")
 QDRANT_PORT = 6333
-BIO_COLLECTION = "biographies"
+# BIO_COLLECTION = "biographies"
+IPHONE_COLLECTION = "iphones-catalog"
 DEFAULT_VECTOR_SIZE = 1536  # OpenAI ada-002 embedding size
 
 
@@ -20,9 +21,9 @@ def get_qdrant_client():
         return QdrantClient(url=QDRANT_URL)
 
 
-def ensure_biographies_collection(client, collection_name=BIO_COLLECTION, vector_size=DEFAULT_VECTOR_SIZE):
+def ensure_collection(client, collection_name=IPHONE_COLLECTION, vector_size=DEFAULT_VECTOR_SIZE):
     """
-    Ensure the biographies collection exists in Qdrant.
+    Ensure the collection exists in Qdrant.
     """
     if collection_name not in [c.name for c in client.get_collections().collections]:
         client.create_collection(

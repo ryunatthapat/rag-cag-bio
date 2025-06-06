@@ -3,7 +3,7 @@ import torch
 import time
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from transformers.cache_utils import DynamicCache
-from utils.data_loader import load_biographies_for_cag
+from utils.data_loader import load_knowledge_for_cag
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -12,7 +12,7 @@ MODEL_NAME = os.getenv("HF_MODEL_NAME", "mistralai/Mistral-7B-Instruct-v0.1")
 HF_TOKEN = os.getenv("HF_TOKEN")
 
 print("[CAG] Loading biographies knowledge...")
-bio_text = load_biographies_for_cag()
+bio_text = load_knowledge_for_cag()
 print(f"[CAG] Loaded biographies ({len(bio_text)} characters)")
 
 print("[CAG] Preparing system prompt...")

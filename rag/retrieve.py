@@ -16,7 +16,7 @@ def get_query_embedding(query: str, model: str = EMBED_MODEL) -> list:
     return response.data[0].embedding
 
 
-def retrieve_biography(query: str, client_qdrant, collection_name: str) -> Dict:
+def retrieve_embeddings(query: str, client_qdrant, collection_name: str) -> Dict:
     embedding = get_query_embedding(query)
     search_result = client_qdrant.search(
         collection_name=collection_name,
