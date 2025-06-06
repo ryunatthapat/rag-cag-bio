@@ -1,6 +1,9 @@
 import os
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import Distance, VectorParams
+from dotenv import load_dotenv
+
+load_dotenv()
 
 QDRANT_API_KEY = os.getenv("QDRANT_API_KEY", None)
 QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")

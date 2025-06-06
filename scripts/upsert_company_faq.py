@@ -2,6 +2,9 @@ from rag.embed import load_company_faq, embed_company_faq
 from rag.db import get_qdrant_client
 from qdrant_client.http.models import Distance, VectorParams
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 COLLECTION_NAME = "company-faq"
 VECTOR_SIZE = 1536  # OpenAI ada-002 embedding size
