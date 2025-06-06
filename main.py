@@ -10,8 +10,8 @@ def print_result(module, answer, timing, color):
     print(f"{color}[{module}] {Style.RESET_ALL}({timing:.2f}s): {answer}")
 
 def main():
-    print(f"{Fore.CYAN}RAG & CAG Biographies Demo CLI{Style.RESET_ALL}")
-    print("Type your question (or 'exit' to quit):\n")
+    print(f"{Fore.CYAN}RAG & CAG Company FAQ Demo CLI{Style.RESET_ALL}")
+    print("Type your question about PALO IT (or 'exit' to quit):\n")
     while True:
         try:
             query = input(f"{Fore.YELLOW}> {Style.RESET_ALL}").strip()

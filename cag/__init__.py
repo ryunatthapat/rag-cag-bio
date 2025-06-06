@@ -11,17 +11,17 @@ load_dotenv()
 MODEL_NAME = os.getenv("HF_MODEL_NAME", "mistralai/Mistral-7B-Instruct-v0.1")
 HF_TOKEN = os.getenv("HF_TOKEN")
 
-print("[CAG] Loading biographies knowledge...")
-bio_text = load_knowledge_for_cag()
-print(f"[CAG] Loaded biographies ({len(bio_text)} characters)")
+print("[CAG] Loading knowledge...")
+faq_text = load_knowledge_for_cag()
+print(f"[CAG] Loaded ({len(faq_text)} characters)")
 
 print("[CAG] Preparing system prompt...")
 system_prompt = f"""
 <|system|>
-You are an assistant who provides concise answers ONLY using the provided context. If the answer is not in the context, say you don't know. Be concise and accurate.
+You are an assistant who provides concise answers ONLY using the provided context short and concise. If the answer is not in the context, say you don't know. Be concise and accurate.
 <|user|>
 Context:
-{bio_text}
+{faq_text}
 Question:
 """.strip()
 

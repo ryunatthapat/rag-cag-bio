@@ -64,6 +64,40 @@ def embed_iphone_catalog(pages: List[Dict], client_qdrant, collection_name: str 
         )
         client_qdrant.upsert(collection_name=collection_name, points=[point])
 
+
+def load_company_faq(md_path: str) -> List[Dict]:
+    """
+    Parse company-faq.md into a list of dicts: {"page": ..., "text": ...}
+    Each page starts with '##' or '#', ends with '---' or EOF.
+    """
+    pages = []
+    with open(md_path, "r", encoding="utf-8") as f:
+        text = f.read()
+    raw_pages = [p.strip() for p in text.split('---') if p.strip()]
+    for idx, page in enumerate(raw_pages):
+        lines = page.splitlines()
+        title = lines[0].strip() if lines else f"Page {idx+1}"
+        pages.append({"page": title, "text": page})
+    return pages
+
+
+def embed_company_faq(pages: List[Dict], client_qdrant, collection_name: str = "company-faq"):
+    """
+    For each company FAQ page, get embedding and upsert into Qdrant.
+    Uses an integer index as the point ID (required by Qdrant).
+    """
+    for idx, page in enumerate(tqdm(pages, desc="Embedding company FAQ")):
+        page_id = idx
+        text = page["text"]
+        page_title = page["page"]
+        embedding = get_embedding(text)
+        point = PointStruct(
+            id=page_id,
+            vector=embedding,
+            payload={"page": page_title, "text": text}
+        )
+        client_qdrant.upsert(collection_name=collection_name, points=[point])
+
 # Example usage:
 # from qdrant_client import QdrantClient
 # client_qdrant = QdrantClient("localhost", port=6333)
