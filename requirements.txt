@@ -1,0 +1,8 @@
+torch
+transformers
+chromadb
+openai
+tqdm
+colorama
+python-dotenv
+qdrant-client 
