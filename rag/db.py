@@ -15,7 +15,6 @@ def get_qdrant_client():
     Connect to the Qdrant instance.
     """
     if QDRANT_API_KEY:
-        print(f"Using Qdrant API key: {QDRANT_API_KEY}")
         return QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY)
     else:
         return QdrantClient(url=QDRANT_URL)

@@ -18,7 +18,7 @@ print(f"[CAG] Loaded biographies ({len(bio_text)} characters)")
 print("[CAG] Preparing system prompt...")
 system_prompt = f"""
 <|system|>
-You are an assistant who provides concise answers.
+You are an assistant who provides concise answers ONLY using the provided context. If the answer is not in the context, say you don't know. Be concise and accurate.
 <|user|>
 Context:
 {bio_text}
@@ -92,7 +92,7 @@ def cag_answer(query: str):
     clean_up(_kv_cache, _origin_len)
     input_ids = _tokenizer(query + "\n", return_tensors="pt").input_ids.to(_device)
     start_gen = time.time()
-    output_ids = generate(_model, input_ids, _kv_cache, max_new_tokens=100)
+    output_ids = generate(_model, input_ids, _kv_cache, max_new_tokens=128)
     end_gen = time.time()
     answer = _tokenizer.decode(output_ids[0], skip_special_tokens=True)
     return answer, {"generation": end_gen - start_gen} 
