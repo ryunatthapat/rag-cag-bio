@@ -20,7 +20,7 @@ def main():
                 break
             if not query:
                 continue
-            print(f"\n{Fore.MAGENTA}Processing...{Style.RESET_ALL}")
+            print(f"\n{Fore.MAGENTA}Querying...{Style.RESET_ALL}")
             results = {}
             exceptions = {}
             def run_rag():

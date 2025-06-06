@@ -22,7 +22,7 @@ def retrieve_embeddings(query: str, client_qdrant, collection_name: str) -> Dict
         collection_name=collection_name,
         query_vector=embedding,
         limit=10,
-        score_threshold=0.5
+        score_threshold=0.3
     )
     if not search_result:
         return None
